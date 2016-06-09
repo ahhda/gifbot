@@ -17,7 +17,7 @@ def get_gif_filename(text):
     filename = 'images/%s.%s' % (text.replace(' ', '_'), image.type)
     print filename, "  FILENAME"
     f = open(filename, 'wb')
-    f.write(request.get(image.media_url).content)
+    f.write(requests.get(image.media_url).content)
     f.close()
     return filename
 

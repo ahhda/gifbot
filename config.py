@@ -11,5 +11,5 @@ twitter = dict(
 
 # Giphy API key
 giphy = dict(
-    key = os.environ.get('GIPHY_KEY', '')
+    key = os.environ.get('GIPHY_KEY', 'dc6zaTOxFJmzC')
 )

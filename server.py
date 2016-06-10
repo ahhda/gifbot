@@ -35,17 +35,20 @@ def verify():
             pass
         return 'Yeah Fine, verified'
     else:
-        output = request.json
-        event = output['entry'][0]['messaging']
-        for x in event:
-            if (x.get('message') and x['message'].get('text')):
-                message = x['message']['text']
-                recipient_id = x['sender']['id']
-                send_text_message(recipient_id, message)
-            else:
-                print "Nothing"
-                pass
-        return "success"
+        try:
+            output = request.json
+            event = output['entry'][0]['messaging']
+            for x in event:
+                if (x.get('message') and x['message'].get('text')):
+                    message = x['message']['text']
+                    recipient_id = x['sender']['id']
+                    send_text_message(recipient_id, message)
+                else:
+                    print "Nothing"
+                    pass
+            return "Success"
+        except:
+            return "Failed"
 
 if __name__ == '__main__':
     print "RUNNING APP"

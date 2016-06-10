@@ -9,9 +9,9 @@ def hello():
 @app.route('/webhook/')#, methods = ['POST'])
 def verify():
     try:
-        ok = request.json.get('hub.verify_token')
+        ok = request.args.get('hub.verify_token')
         if ok == 'my_voice_is_my_password_verify_me':
-            return request.json.get('hub.challenge')
+            return request.args.get('hub.challenge')
     except:
         pass
     return 'Yeah Fine, verified'

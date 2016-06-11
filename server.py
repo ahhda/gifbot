@@ -27,7 +27,7 @@ def send_text_message(recipient_id, message):
 
 @app.route('/webhook/', methods=['GET', 'POST'])
 def verify():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             ok = request.args.get('hub.verify_token')
             if ok == 'my_voice_is_my_password_verify_me':
@@ -35,7 +35,7 @@ def verify():
         except:
             pass
         return 'Yeah Fine, verified'
-    else:
+    if request.method == 'POST':
         try:
             output = request.json
             event = output['entry'][0]['messaging']

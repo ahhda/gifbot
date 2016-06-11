@@ -16,6 +16,7 @@ def send_text_message(recipient_id, message):
                 'text': message
             }
         }
+    print "Got Message, ", message
     access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
     base_url = (
             "https://graph.facebook.com"

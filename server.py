@@ -23,6 +23,7 @@ def send_text_message(recipient_id, message):
             "/v2.6/me/messages?access_token={1}"
         ).format(access_token)
     result = requests.post(base_url, json=payload).json()
+    print "RESULT IS ", result
     return result
 
 @app.route('/webhook/', methods=['GET', 'POST'])

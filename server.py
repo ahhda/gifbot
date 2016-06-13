@@ -20,7 +20,7 @@ def send_text_message(recipient_id, message):
     access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
     base_url = (
             "https://graph.facebook.com"
-            "/v2.6/me/messages?access_token={1}"
+            "/v2.6/me/messages?access_token={0}"
         ).format(access_token)
     result = requests.post(base_url, json=payload).json()
     print "RESULT IS ", result
@@ -49,7 +49,8 @@ def verify():
                     print "Nothing"
                     pass
             return "Success"
-        except:
+        except Exception, e:
+            print e
             return "Failed"
 
 if __name__ == '__main__':

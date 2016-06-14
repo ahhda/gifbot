@@ -56,8 +56,7 @@ def send_text_message(recipient_id, text):
                 "payload": {
                     "template_type": "generic",
                     "elements": [{
-                        "title": "First card",
-                        "subtitle": "Element #1 of an hscroll",
+                        "title": text,
                         "image_url": image.media_url,
                         "item_url": image.media_url
                     }]

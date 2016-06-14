@@ -7,21 +7,35 @@ app = Flask(__name__)
 def hello():
     return 'Hello World'
 
-def send_text_message(recipient_id, message):
-    payload = {
-            'recipient': {
-                'id': recipient_id
-            },
-            'message': {
-                'text': message
-            }
-        }
-    print "Got Message, ", message
+def send_text_message(recipient_id, text):
     access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
+
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"
         ).format(access_token)
+    images = [i for i in giphy.search(text, limit=20) if i.filesize < MAX_IMAGE_SIZE]
+    if not images or images is []:
+        return None
+    image = images[0]
+    elements = []
+    element = Element(title="test", image_url=image.media_url, subtitle="subtitle", item_url=image.media_url)
+    elements.append(element)
+
+    payload = {
+        'recipient': {
+            'id': recipient_id
+        },
+        'message': {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": elements
+                }
+            }
+        }
+    }
     result = requests.post(base_url, json=payload).json()
     print "RESULT IS ", result
     return result

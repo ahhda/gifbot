@@ -41,9 +41,10 @@ def send_text_message(recipient_id, text):
         return None
     image = images[0]
 
-    elements = []
-    element = Element(title="test", image_url=str(image.media_url), subtitle="subtitle", item_url=str(image.media_url))
-    elements.append(element)
+    # elements = []
+    # element = Element(title="test", image_url=str(image.media_url), subtitle="subtitle", item_url=str(image.media_url))
+    # elements.append(element)
+    print image.media_url
 
     payload = {
         'recipient': {
@@ -54,7 +55,11 @@ def send_text_message(recipient_id, text):
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "elements": elements
+                    "elements": [{
+                        "title": "First card",
+                        "subtitle": "Element #1 of an hscroll",
+                        "image_url": image.media_url,
+                    }]
                 }
             }
         }

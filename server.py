@@ -27,18 +27,22 @@ def hello():
     return 'Hello World'
 
 def send_text_message(recipient_id, text):
-    access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
+    print "RECIPIENT ID ", recipient_id
 
+    access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"
         ).format(access_token)
+
     images = [i for i in giphy.search(text, limit=20) if i.filesize < MAX_IMAGE_SIZE]
     if not images or images is []:
+        "No Images"
         return None
     image = images[0]
+
     elements = []
-    element = Element(title="test", image_url=image.media_url, subtitle="subtitle", item_url=image.media_url)
+    element = Element(title="test", image_url=str(image.media_url), subtitle="subtitle", item_url=str(image.media_url))
     elements.append(element)
 
     payload = {
@@ -55,6 +59,7 @@ def send_text_message(recipient_id, text):
             }
         }
     }
+    print "DOING JSON"
     result = requests.post(base_url, json=payload).json()
     print "RESULT IS ", result
     return result

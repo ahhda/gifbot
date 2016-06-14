@@ -59,6 +59,7 @@ def send_text_message(recipient_id, text):
                         "title": "First card",
                         "subtitle": "Element #1 of an hscroll",
                         "image_url": image.media_url,
+                        "item_url": image.media_url
                     }]
                 }
             }

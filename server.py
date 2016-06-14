@@ -1,7 +1,13 @@
 from flask import Flask, request
 import json
+import giphypop
 import requests
+import config
+import os
+
 app = Flask(__name__)
+giphy = giphypop.Giphy(api_key=config.giphy['key'])
+MAX_IMAGE_SIZE = 3072 * 1024
 
 @app.route('/')
 def hello():

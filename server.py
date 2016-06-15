@@ -41,11 +41,9 @@ def send_text_message(recipient_id, text):
         return None
     image = images[0]
 
-    # elements = []
-    # element = Element(title="test", image_url=str(image.media_url), subtitle="subtitle", item_url=str(image.media_url))
+    # elements = []ia_url), subtitle="subtitle", item_url=str(image.media_url))
     # elements.append(element)
     print image.media_url
-
     payload = {
         'recipient': {
             'id': recipient_id
@@ -54,16 +52,32 @@ def send_text_message(recipient_id, text):
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": text,
-                        "image_url": image.media_url,
-                        "item_url": image.media_url
-                    }]
+                    "type":"image",
+                    "payload":{
+                        "url":image.media_url
+                    }
                 }
             }
         }
     }
+    # payload = {
+    #     'recipient': {
+    #         'id': recipient_id
+    #     },
+    #     'message': {
+    #         "attachment": {
+    #             "type": "template",
+    #             "payload": {
+    #                 "template_type": "generic",
+    #                 "elements": [{
+    #                     "title": text,
+    #                     "image_url": image.media_url,
+    #                     "item_url": image.media_url
+    #                 }]
+    #             }
+    #         }
+    #     }
+    # }
     print "DOING JSON"
     result = requests.post(base_url, json=payload).json()
     print "RESULT IS ", result

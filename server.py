@@ -50,12 +50,9 @@ def send_text_message(recipient_id, text):
         },
         'message': {
             "attachment": {
-                "type": "template",
-                "payload": {
-                    "type":"image",
+                "type": "image",
                     "payload":{
                         "url":image.media_url
-                    }
                 }
             }
         }

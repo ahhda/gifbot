@@ -4,6 +4,7 @@ import giphypop
 import requests
 import config
 import os
+from flask import render_template
 
 app = Flask(__name__)
 giphy = giphypop.Giphy(api_key=config.giphy['key'])

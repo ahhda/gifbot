@@ -26,6 +26,10 @@ class Element(object):
 def hello():
     return 'Hello World'
 
+@app.route('/privacypolicy/')
+def privacy():
+    return render_template('privacy-policy.html')
+
 def send_text_message(recipient_id, text):
     print "RECIPIENT ID ", recipient_id
 

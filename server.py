@@ -112,6 +112,7 @@ def verify():
             print e
             return "Failed"
 
+
 if __name__ == '__main__':
     print "RUNNING APP"
     app.run(debug=True)

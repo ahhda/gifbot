@@ -49,19 +49,7 @@ def send_text_message(recipient_id, text):
     # elements = []ia_url), subtitle="subtitle", item_url=str(image.media_url))
     # elements.append(element)
     print image.media_url
-    payload = {
-        'recipient': {
-            'id': recipient_id
-        },
-        'message': {
-            "attachment": {
-                "type": "image",
-                    "payload":{
-                        "url":image.media_url
-                }
-            }
-        }
-    }
+
     # payload = {
     #     'recipient': {
     #         'id': recipient_id
@@ -81,7 +69,7 @@ def send_text_message(recipient_id, text):
     #     }
     # }
     print "DOING JSON"
-    result = requests.post(base_url, json=payload).json()
+    send_blank_msg(recipient_id, image.media_url)
     print "RESULT IS ", result
     return result
 

@@ -33,6 +33,25 @@ def send_text_message(recipient_id, text):
         return None
     image = images[0]
     print image.media_url
+    access_token = "EAAYy5xTcEToBAFlPJ5xn1axZB5ln34ZCuw1setBcGxSGo89YurkEbqgCHWa10RM5LwAptwXlXwYFD0mLx6RYy7TTB6tVcJv4CwI0jD8sRJWwCByyDSv8feJ5ipJUXJSB3Ma8yvXgKICZBx23BOmF97nVVWXppKgH716qBrntQZDZD"
+    base_url = (
+            "https://graph.facebook.com"
+            "/v2.6/me/messages?access_token={0}"
+        ).format(access_token)
+    payload = {
+        'recipient': {
+            'id': recipient_id
+        },
+        'message': {
+            "attachment": {
+                "type": "image",
+                    "payload":{
+                        "url": image.media_url
+                }
+            }
+        }
+    }
+    print recipient_id, message
 
     # payload = {
     #     'recipient': {
@@ -53,7 +72,8 @@ def send_text_message(recipient_id, text):
     #     }
     # }
     print "DOING JSON"
-    result = send_blank_msg(recipient_id, image.media_url)
+    result = requests.post(base_url, json=payload).json()
+    #result = send_blank_msg(recipient_id, image.media_url)
     print "RESULT IS ", result
     return result
 
@@ -99,11 +119,11 @@ def verify():
                     message = x['message']['text']
                     recipient_id = x['sender']['id']
                     print "REC IS" , recipient_id
-                    value = send_text_message(recipient_id, message)
-                    print "VALUE IS ", value
-                    if value is None:
-                        print "in messages"
-                        send_blank_msg(recipient_id, "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
+                    send_text_message(recipient_id, message)
+                    # print "VALUE IS ", value
+                    # if value is None:
+                    #     print "in messages"
+                    #     send_blank_msg(recipient_id, "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
                 else:
                     print "Nothing"
                     pass

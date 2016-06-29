@@ -14,13 +14,13 @@ def send_blank_msg(recipient_id, message):
         ).format(access_token)
     payload = {
         'recipient': {
-            'id': "1177440588954541"
+            'id': "1109558182441367"
         },
         'message': {
             "attachment": {
                 "type": "image",
                     "payload":{
-                        "url": "hello"
+                        "url": "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif"
                 }
             }
         }

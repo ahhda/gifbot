@@ -98,6 +98,7 @@ def verify():
                 if (x.get('message') and x['message'].get('text')):
                     message = x['message']['text']
                     recipient_id = x['sender']['id']
+                    print "REC IS" , recipient_id
                     value = send_text_message(recipient_id, message)
                     print "VALUE IS ", value
                     if value is None:

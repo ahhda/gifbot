@@ -65,7 +65,7 @@ def send_blank_msg(recipient_id, message):
         ).format(access_token)
     payload = {
         'recipient': {
-            'id': recipient_id
+            'id': str(recipient_id)
         },
         'message': {
             "attachment": {

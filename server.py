@@ -85,6 +85,23 @@ def send_text_message(recipient_id, text):
     print "RESULT IS ", result
     return result
 
+def send_blank_msg(recipient_id, message):
+    access_token = "EAAYy5xTcEToBAFlPJ5xn1axZB5ln34ZCuw1setBcGxSGo89YurkEbqgCHWa10RM5LwAptwXlXwYFD0mLx6RYy7TTB6tVcJv4CwI0jD8sRJWwCByyDSv8feJ5ipJUXJSB3Ma8yvXgKICZBx23BOmF97nVVWXppKgH716qBrntQZDZD"
+    base_url = (
+            "https://graph.facebook.com"
+            "/v2.6/me/messages?access_token={0}"
+        ).format(access_token)
+    payload = {
+            'recipient': {
+                'id': recipient_id
+            },
+            'message': {
+                'text':message,
+            }
+        }
+    result = requests.post(base_url, json=payload).json()
+    return result
+
 @app.route('/webhook/', methods=['GET', 'POST'])
 def verify():
     if request.method == 'GET':
@@ -103,7 +120,9 @@ def verify():
                 if (x.get('message') and x['message'].get('text')):
                     message = x['message']['text']
                     recipient_id = x['sender']['id']
-                    send_text_message(recipient_id, message)
+                    value = send_text_message(recipient_id, message)
+                    if value is None:
+                        send_blank_msg(recipient_id, "Sorry No GIF Found")
                 else:
                     print "Nothing"
                     pass

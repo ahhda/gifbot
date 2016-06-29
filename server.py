@@ -69,7 +69,7 @@ def send_text_message(recipient_id, text):
     #     }
     # }
     print "DOING JSON"
-    send_blank_msg(recipient_id, image.media_url)
+    result = send_blank_msg(recipient_id, image.media_url)
     print "RESULT IS ", result
     return result
 

@@ -31,15 +31,15 @@ def hello():
 def privacy():
     return render_template('privacy-policy.html')
 
-def send_text_message(recipient_id, text):
-    print "RECIPIENT ID ", recipient_id
-
+def send_image(recipient_id, image):
     access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"
         ).format(access_token)
 
+def send_text_message(recipient_id, text):
+    print "RECIPIENT ID ", recipient_id
     images = [i for i in giphy.search(text, limit=20) if i.filesize < MAX_IMAGE_SIZE]
     if not images or images is []:
         "No Images"
@@ -92,13 +92,18 @@ def send_blank_msg(recipient_id, message):
             "/v2.6/me/messages?access_token={0}"
         ).format(access_token)
     payload = {
-            'recipient': {
-                'id': recipient_id
-            },
-            'message': {
-                'text':message,
+        'recipient': {
+            'id': recipient_id
+        },
+        'message': {
+            "attachment": {
+                "type": "image",
+                    "payload":{
+                        "url":message
+                }
             }
         }
+    }
     result = requests.post(base_url, json=payload).json()
     return result
 
@@ -121,8 +126,10 @@ def verify():
                     message = x['message']['text']
                     recipient_id = x['sender']['id']
                     value = send_text_message(recipient_id, message)
+                    print "VALUE IS ", value
                     if value is None:
-                        send_blank_msg(recipient_id, "Sorry No GIF Found")
+                        print "in messages"
+                        send_blank_msg(recipient_id, "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
                 else:
                     print "Nothing"
                     pass

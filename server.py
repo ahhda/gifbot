@@ -10,19 +10,6 @@ app = Flask(__name__)
 giphy = giphypop.Giphy(api_key=config.giphy['key'])
 MAX_IMAGE_SIZE = 3072 * 1024
 
-class Element(object):
-
-    __acceptable_keys = ['title', 'item_url', 'image_url', 'subtitle']
-    def __init__(self, **kwargs):
-        for key in self.__acceptable_keys:
-            setattr(self, key, kwargs.get(key))
-
-    def to_json(self):
-        data = {}
-        for key in self.__acceptable_keys:
-            data[key] = getattr(self, key)
-        return json.dumps(data)
-
 @app.route('/')
 def hello():
     return 'Hello World'
@@ -45,9 +32,6 @@ def send_text_message(recipient_id, text):
         "No Images"
         return None
     image = images[0]
-
-    # elements = []ia_url), subtitle="subtitle", item_url=str(image.media_url))
-    # elements.append(element)
     print image.media_url
 
     # payload = {
@@ -92,6 +76,7 @@ def send_blank_msg(recipient_id, message):
             }
         }
     }
+    print recipient_id, message
     result = requests.post(base_url, json=payload).json()
     return result
 
@@ -125,7 +110,6 @@ def verify():
         except Exception, e:
             print e
             return "Failed"
-
 
 if __name__ == '__main__':
     print "RUNNING APP"

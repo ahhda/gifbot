@@ -51,7 +51,7 @@ def send_text_message(recipient_id, text):
             }
         }
     }
-    print recipient_id, message
+    print recipient_id
 
     # payload = {
     #     'recipient': {

@@ -115,6 +115,7 @@ def verify():
             output = request.json
             event = output['entry'][0]['messaging']
             for x in event:
+                print "EVENT IS ", x
                 if (x.get('message') and x['message'].get('text')):
                     message = x['message']['text']
                     recipient_id = x['sender']['id']

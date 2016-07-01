@@ -120,7 +120,7 @@ def verify():
                     message = x['message']['text']
                     recipient_id = x['sender']['id']
                     print "REC IS" , recipient_id
-                    send_text_message(recipient_id, message)
+                    value = send_text_message(recipient_id, message)
                     # print "VALUE IS ", value
                     if value is None:
                         print "in messages"

@@ -124,6 +124,7 @@ def verify():
                     # print "VALUE IS ", value
                     if value is None:
                         print "in messages"
+                        send_blank_msg(recipient_id, "No GIF found. :(")
                         send_blank_msg(recipient_id, "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
                 else:
                     print "Nothing"

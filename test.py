@@ -14,7 +14,7 @@ def send_blank_msg(recipient_id, message):
         ).format(access_token)
     payload = {
         'recipient': {
-            'id': "1177440588954541"
+            'id': "1109558182441367"
         },
         'message': {
             "attachment": {
@@ -29,5 +29,5 @@ def send_blank_msg(recipient_id, message):
     result = requests.post(base_url, json=payload).json()
     return result
 
-res = send_blank_msg("1177440588954541", "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
+res = send_blank_msg("1109558182441367", "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
 print res

@@ -19,7 +19,7 @@ def privacy():
     return render_template('privacy-policy.html')
 
 def send_image(recipient_id, image):
-    access_token = "EAAIPDYHtMsoBAOYf6CfnA6dKsTWQQzZBO1Pq0rLxgmDLBEh5RCV4Slvne2swN0YVhkZCe9PyhZC9Imu43hHQITN1p5x71incdH5cv5alWkjKoqFfJE1pPwthSjcZA0GC4MfRZCzrlHizlsReusPi29s7iI9xZARyFNC9L6IpaZAcQZDZD"
+    access_token = "EAAIPDYHtMsoBADhPS4WbHPf1cE7TDc2H5GpVJ0HqiCs8GnmoZAVYEiCkSBZCJ8j143ZCrYWWfQkZBqL4HZAomeiJi5L69X362JbDCvjkJ7C8xb8S4ARD4TZAdqZBssgc3xpnL8DJ6oOg9Dpbs5MpZCZBjNUvV0WS2jUIwR2m51etNpAZDZD"
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"
@@ -33,7 +33,7 @@ def send_text_message(recipient_id, text):
         return None
     image = images[0]
     print image.media_url
-    access_token = "EAAYy5xTcEToBAFlPJ5xn1axZB5ln34ZCuw1setBcGxSGo89YurkEbqgCHWa10RM5LwAptwXlXwYFD0mLx6RYy7TTB6tVcJv4CwI0jD8sRJWwCByyDSv8feJ5ipJUXJSB3Ma8yvXgKICZBx23BOmF97nVVWXppKgH716qBrntQZDZD"
+    access_token = "EAAIPDYHtMsoBADhPS4WbHPf1cE7TDc2H5GpVJ0HqiCs8GnmoZAVYEiCkSBZCJ8j143ZCrYWWfQkZBqL4HZAomeiJi5L69X362JbDCvjkJ7C8xb8S4ARD4TZAdqZBssgc3xpnL8DJ6oOg9Dpbs5MpZCZBjNUvV0WS2jUIwR2m51etNpAZDZD"
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"
@@ -78,7 +78,7 @@ def send_text_message(recipient_id, text):
     return result
 
 def send_blank_msg(recipient_id, message):
-    access_token = "EAAYy5xTcEToBAFlPJ5xn1axZB5ln34ZCuw1setBcGxSGo89YurkEbqgCHWa10RM5LwAptwXlXwYFD0mLx6RYy7TTB6tVcJv4CwI0jD8sRJWwCByyDSv8feJ5ipJUXJSB3Ma8yvXgKICZBx23BOmF97nVVWXppKgH716qBrntQZDZD"
+    access_token = "EAAIPDYHtMsoBADhPS4WbHPf1cE7TDc2H5GpVJ0HqiCs8GnmoZAVYEiCkSBZCJ8j143ZCrYWWfQkZBqL4HZAomeiJi5L69X362JbDCvjkJ7C8xb8S4ARD4TZAdqZBssgc3xpnL8DJ6oOg9Dpbs5MpZCZBjNUvV0WS2jUIwR2m51etNpAZDZD"
     base_url = (
             "https://graph.facebook.com"
             "/v2.6/me/messages?access_token={0}"

@@ -1,10 +1,10 @@
 Gifbot
 ========
 
-Gifbot is a Facebook Messenger Bot that sends you a gif everytime you send it a message.
-
+Gifbot is a Facebook Messenger Bot that sends you a GIF everytime you send it a message.
+<kbd>
 [![Gifbot View](gifbotdemo.gif)](http://m.me/sendmeagif)
-
+</kbd>
 ## Demo
 
 [m.me/sendmeagif](http://m.me/sendmeagif)

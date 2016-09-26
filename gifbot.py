@@ -1,75 +1,90 @@
-import os
-import giphypop
+from flask import Flask, request
 import json
+import giphypop
 import requests
 import config
+import os
+from flask import render_template
 
-MAX_IMAGE_SIZE = 3072 * 1024
+app = Flask(__name__)
 giphy = giphypop.Giphy(api_key=config.giphy['key'])
+MAX_IMAGE_SIZE = 3072 * 1024
+access_token = config.fb['access_token']
+base_url = (
+        "https://graph.facebook.com"
+        "/v2.6/me/messages?access_token={0}"
+    ).format(access_token)
 
-class Element(object):
+@app.route('/')
+def hello():
+    return 'Hello World'
 
-    __acceptable_keys = ['title', 'item_url', 'image_url', 'subtitle']
-    def __init__(self, **kwargs):
-        for key in self.__acceptable_keys:
-            setattr(self, key, kwargs.get(key))
-
-    def to_json(self):
-        data = {}
-        for key in self.__acceptable_keys:
-            data[key] = getattr(self, key)
-        return json.dumps(data)
-
-def get_gif_filename(text):
-    images = [i for i in giphy.search(text, limit=20) if i.filesize < MAX_IMAGE_SIZE]
-    if not images or images is []:
-        return None
-    print images
-    image = images[0]
-    print "image is ", image
-    filename = 'images/%s.%s' % (text.replace(' ', '_'), image.type)
-    print filename, "  FILENAME ", " URL ", image.media_url
-    f = open(filename, 'wb')
-    f.write(requests.get(image.media_url).content)
-    f.close()
-    return filename
-
-def send_generic_message(recipient_id, elements):
-        payload = {
+def send_normal_message(recipient_id, message):
+    payload = {
             'recipient': {
                 'id': recipient_id
             },
             'message': {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": elements
-                    }
+                'text': message,
+            }
+        }
+    result = requests.post(base_url, json=payload).json()
+    return result
+
+def send_image_message(recipient_id, message):
+    payload = {
+        'recipient': {
+            'id': str(recipient_id)
+        },
+        'message': {
+            "attachment": {
+                "type": "image",
+                    "payload":{
+                        "url": message
                 }
             }
         }
-        result = requests.post(base_url, json=payload).json()
-        return result
+    }
+    result = requests.post(base_url, json=payload).json()
+    return result
 
-def send_gif_url(recipient_id, text):
+def send_image(recipient_id, text):
     images = [i for i in giphy.search(text, limit=20) if i.filesize < MAX_IMAGE_SIZE]
     if not images or images is []:
         return None
     image = images[0]
-    elements = []
-    element = Element(title="test", image_url=image.media_url, subtitle="subtitle", item_url=image.media_url)
-    elements.append(element)
-    send_generic_message(recipient_id, elements)
-    print filename, "  FILENAME ", " URL ", image.media_url
-    #return image.media_url
+    result = send_image_message(recipient_id, image.media_url)
+    return result
 
-if not os.path.exists('images/'):
-    os.makedirs('images/')
+@app.route('/webhook/', methods=['GET', 'POST'])
+def verify():
+    if request.method == 'GET':
+        try:
+            ok = request.args.get('hub.verify_token')
+            if ok == 'my_voice_is_my_password_verify_me':
+                return request.args.get('hub.challenge')
+        except:
+            pass
+        return 'Yeah Fine, verified'
+    if request.method == 'POST':
+        try:
+            output = request.json
+            event = output['entry'][0]['messaging']
+            for x in event:
+                if (x.get('message') and x['message'].get('text')):
+                    message = x['message']['text']
+                    recipient_id = x['sender']['id']
+                    value = send_image(recipient_id, message)
+                    if value is None:
+                        # No Gif found for the search term. Return a funny gif"
+                        send_normal_message(recipient_id, "No GIF found. :(")
+                        send_image_message(recipient_id, "http://media1.giphy.com/media/IHOOMIiw5v9VS/giphy.gif")
+                else:
+                    pass
+            return "Success"
+        except Exception, e:
+            print e
+            return "Failed"
 
-def main():
-    inp = raw_input("Enter text: ")
-    get_gif_filename(inp)
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)

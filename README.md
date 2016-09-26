@@ -21,14 +21,14 @@ Create a file called `config.py` that looks like `config_example.py`. Fill in th
 
 ### *Build the server using heroku*
 
-    ```
-    git init
-    git add .
-    git commit --message 'hello world'
-    heroku create
-    git push heroku master
-    ```
+```
+git init
+git add .
+git commit --message 'hello world'
+heroku create
+git push heroku master
+```
 
 To learn more on how to setup the Facebook page and setup the bot refer to [messenger tutorial](https://github.com/jw84/messenger-bot-tutorial).
 
-*Powered by Giphy*
+**Powered by Giphy**

@@ -2,9 +2,12 @@ Gifbot
 ========
 
 Gifbot is a Facebook Messenger Bot that sends you a GIF everytime you send it a message.
-<kbd>
-[![Gifbot View](gifbotdemo.gif)](http://m.me/sendmeagif)
-</kbd>
+Built using Flask.
+
+
+<kbd>[![Gifbot View](gifbotdemo.gif)](http://m.me/sendmeagif)</kbd>
+
+
 ## Demo
 
 [m.me/sendmeagif](http://m.me/sendmeagif)
